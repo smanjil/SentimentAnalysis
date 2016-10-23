@@ -1,0 +1,23 @@
+
+Total positive, negative data: 154 146
+
+Total positive, negative data, total training: 123 116 239
+
+Total positive, negative data, total testing: 31 30 61
+
+Test classified: 61
+['Positive', 'Positive', 'Positive', 'Negative', 'Negative', 'Positive', 'Positive', 'Positive', 'Negative', 'Negative', 'Positive', 'Negative', 'Positive', 'Negative', 'Positive', 'Negative', 'Negative', 'Negative', 'Positive', 'Negative', 'Negative', 'Negative', 'Positive', 'Negative', 'Positive', 'Negative', 'Negative', 'Negative', 'Positive', 'Negative', 'Positive', 'Negative', 'Negative', 'Negative', 'Positive', 'Negative', 'Negative', 'Negative', 'Positive', 'Negative', 'Negative', 'Positive', 'Negative', 'Negative', 'Negative', 'Negative', 'Negative', 'Negative', 'Negative', 'Negative', 'Negative', 'Negative', 'Negative', 'Negative', 'Negative', 'Negative', 'Positive', 'Negative', 'Negative', 'Negative', 'Negative']
+
+Positive, Negative: 18 43
+
+Classified positive, negative: 31 30
+
+Actual positive, negative: 14 26
+
+TP, FN, TN, FP: 14 17 26 4
+
+Avg. Precision, Recall: 0.691214470284 0.659139784946
+
+F-measure: 67.4796195932 percent....
+
+Accuracy: 65.5737704918 percent....

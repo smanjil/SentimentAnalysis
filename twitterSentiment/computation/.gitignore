@@ -1,0 +1,21 @@
+# Apple
+.DS_Store
+
+# Python
+__pycache__
+*.pyc
+*.egg-info
+
+# Sphinx
+docs/_build
+
+# Testing
+.coverage
+.coverage-html/
+.coverage.*
+coverage/
+.tox/
+
+# Distribute
+dist/
+build/

@@ -1,0 +1,408 @@
+        ##########################################################################################
+        
+                        dot product
+                        
+        ######################################### for accuracy ###################################
+        ##########################################################################################
+        print '\nAccuracy : '
+        
+        # separate training data into training and validation sets
+        
+        # self.posit_train_tfidf = self.positive_train_tfidf[:38]
+        # self.negat_train_tfidf = self.negative_train_tfidf[:38]
+        
+        self.posit_train_tfidf = [j for i, j in enumerate(self.positive_train_tfidf) \
+                                          if i < int(len(self.positive_train_tfidf) * 0.8)]
+        self.negat_train_tfidf = [j for i, j in enumerate(self.negative_train_tfidf) \
+                                          if i < int(len(self.negative_train_tfidf) * 0.8)]
+        
+        print '\nTotal positive training data: ', len(self.posit_train_tfidf)
+        print 'Total negative training data: ', len(self.negat_train_tfidf), '\n'
+        
+        if debug:
+            print '\nTotal positive training data: ', self.posit_train_tfidf[0]
+            print '\nTotal negative training data: ', self.negat_train_tfidf[0], '\n'
+        
+        # self.pos_test = self.positive_train_tfidf[38:]
+        # self.neg_test = self.negative_train_tfidf[38:]
+        
+        self.pos_test = [j for i, j in enumerate(self.positive_train_tfidf) \
+                                          if i >= int(len(self.positive_train_tfidf) * 0.8)]
+        self.neg_test = [j for i, j in enumerate(self.negative_train_tfidf) \
+                                          if i >= int(len(self.negative_train_tfidf) * 0.8)]
+        
+        print '\nTotal positive testing data: ', len(self.pos_test)
+        print 'Total negative testing data: ', len(self.neg_test), '\n'
+        
+        if debug:
+            print '\nTotal positive testing data: ', self.pos_test[0]
+            print '\nTotal negative testing data: ', self.neg_test[0], '\n'
+        
+        self.acc_pos_dot_product = []
+        self.acc_neg_dot_product = []
+
+        # dot products for positive training vectors and testing vectors        
+        # debug program
+        if debug:
+            print '\nPositive dot product: '
+        # print '\nPositive dot product: '
+        for items in self.pos_test:
+            acc_pos_dot_product = []
+            # debug program
+            if debug:
+                print '\nItems Start-----------'
+                print items, '\n'
+            for item in self.posit_train_tfidf:
+                acc_sum_dot_product = 0
+                # debug program
+                if debug:
+                    print '\nItem[0] Start-----------'
+                    print item[0]
+                for vec in item[0]:
+                    # print vec
+                    if vec in items[0]:
+                        # print vec
+                        acc_dot_product = item[0][vec] * items[0][vec]
+                        # print acc_dot_product
+                        if acc_dot_product == 0.0:
+                            acc_dot_product = 0.001
+                        acc_sum_dot_product += acc_dot_product
+                acc_pos_dot_product.append(format(acc_sum_dot_product, '.3f'))
+            self.acc_pos_dot_product.append(acc_pos_dot_product)
+        # print '\n', len(self.acc_pos_dot_product)
+        # debug program
+        if debug:
+            print '\n', self.acc_pos_dot_product
+
+        # dot products for negative training vectors and testing vectors
+        # debug program
+        if debug:
+            print '\nNegative dot product: '
+            print '\nNegative dot product: '
+        for items in self.neg_test:
+            acc_neg_dot_product = []
+            # debug program
+            if debug:
+                print '\nItems Start-----------'
+                print items, '\n'
+            for item in self.negat_train_tfidf:
+                acc_sum_dot_product = 0
+                # debug program
+                if debug:
+                    print '\nItem[0] Start-----------'
+                    print item[0]
+                for vec in item[0]:
+                    if vec in items[0]:
+                        acc_dot_product = item[0][vec] * items[0][vec]
+                        if acc_dot_product == 0.0:
+                            acc_dot_product = 0.001
+                        acc_sum_dot_product += acc_dot_product
+                acc_neg_dot_product.append(format(acc_sum_dot_product, '.3f'))
+            self.acc_neg_dot_product.append(acc_neg_dot_product)
+        # print '\n', len(self.acc_neg_dot_product), '\n'
+        # debug program
+        if debug:
+            print '\n', self.acc_neg_dot_product, '\n'
+        
+        ############################### end of accuracy ########################################
+        
+        
+        
+        
+        ##########################################################################################
+                    length normalization
+        ######################################### for accuracy ###################################
+        ##########################################################################################
+        
+        self.acc_pos_test_normalization = []
+        self.acc_neg_test_normalization = []
+        self.acc_pos_train_normalization = []
+        self.acc_neg_train_normalization = []
+
+        # length normalization for test vectors
+        # debug program
+        if debug:            
+            print '\nPositive testing length normalization vector: '
+            print '\nPositive testing length normalization vector: '        
+            
+        for items in self.pos_test:
+            acc_pos_test_norm = math.sqrt(sum([math.pow(val,2) for val in items[0].values()]))
+            self.acc_pos_test_normalization.append(format(acc_pos_test_norm, '.3f'))
+            
+        if debug:
+            print self.acc_pos_test_normalization, '\n'        
+            print '\nNegative testing length normalization vector: '
+            
+        for items in self.neg_test:
+            acc_neg_test_norm = math.sqrt(sum([math.pow(val,2) for val in items[0].values()]))
+            self.acc_neg_test_normalization.append(format(acc_neg_test_norm, '.3f'))
+            
+        if debug:
+            print self.acc_neg_test_normalization, '\n'
+            print self.acc_neg_test_normalization, '\n'
+        
+        # length normalization for positive training vectors
+        # debug program
+        if debug:
+            print 'Positive training length normalization vector: '
+            print 'Positive training length normalization vector: '
+            
+        for items in self.posit_train_tfidf:
+            acc_pos_train_norm = math.sqrt(sum([math.pow(val,2) for val in items[0].values()]))
+            self.acc_pos_train_normalization.append(format(acc_pos_train_norm, '.3f'))
+        
+        if debug:
+            print self.acc_pos_train_normalization, '\n'
+            print self.acc_pos_train_normalization, '\n'
+        
+        # length normalization for negative training vectors
+        # debug program
+        if debug:
+            print 'Negative training length normalization vector: '
+            print 'Negative training length normalization vector: '
+            
+        for items in self.negat_train_tfidf:
+            acc_neg_train_norm = math.sqrt(sum([math.pow(val,2) for val in items[0].values()]))
+            self.acc_neg_train_normalization.append(format(acc_neg_train_norm, '.3f'))
+            
+        if debug:
+            print self.acc_neg_train_normalization, '\n'
+            print self.acc_neg_train_normalization, '\n'
+        
+        ############################### end of accuracy ########################################
+        
+        
+        ##########################################################################################
+                        cosine similarities
+        ######################################### for accuracy ###################################
+        ##########################################################################################
+        
+        self.acc_pos_cos_sim = []
+        self.acc_neg_cos_sim = []
+
+        # positive cosine similarities
+        # debug program
+        if debug:
+            print 'Positive Cosine Similarities: '
+            print 'Positive Cosine Similarities: '
+            
+        for i in range(len(self.acc_pos_test_normalization)):
+            acc_pos_sim = []
+            for j in range(len(self.acc_pos_train_normalization)):
+                if (float(self.acc_pos_test_normalization[i]) * \
+                                                        float(self.acc_pos_train_normalization[j])) == 0.000:
+                    acc_sim = 0.000
+                else:
+                    acc_sim = float(self.acc_pos_dot_product[i][j]) / (float(self.acc_pos_test_normalization[i]) * \
+                                                                float(self.acc_pos_train_normalization[j]))
+                if acc_sim == 0.000:
+                    acc_sim = 0.001
+                acc_pos_sim.append(format(acc_sim, '.3f'))
+            self.acc_pos_cos_sim.append(acc_pos_sim)
+            
+        if debug:
+            print self.acc_pos_cos_sim, '\n'
+        # print len(self.acc_pos_cos_sim), '\n'
+
+        # negative cosine similarities
+        # debug program
+        if debug:
+            print 'Negative Cosine Similarities: '
+            print 'Negative Cosine Similarities: '
+            
+        for i in range(len(self.acc_neg_test_normalization)):
+            acc_neg_sim = []
+            for j in range(len(self.acc_neg_train_normalization)):
+                if (float(self.acc_neg_test_normalization[i]) * \
+                                                        float(self.acc_neg_train_normalization[j])) == 0.000:
+                    acc_sim = 0.000
+                else:
+                    acc_sim = float(self.acc_neg_dot_product[i][j]) / (float(self.acc_neg_test_normalization[i]) * \
+                                                                float(self.acc_neg_train_normalization[j]))
+                if acc_sim == 0.000:
+                    acc_sim = 0.001
+                acc_neg_sim.append(format(acc_sim, '.3f'))
+            self.acc_neg_cos_sim.append(acc_neg_sim)
+        
+        if debug:
+            print self.acc_neg_cos_sim, '\n'
+        # print len(self.acc_neg_cos_sim), '\n'
+        
+        ############################### end of accuracy ########################################
+        
+        
+        
+         ##########################################################################################
+                     product of cosines
+        ######################################### for accuracy ###################################
+        ##########################################################################################
+        
+        self.acc_product_pos_cos_sim = []
+        self.acc_product_neg_cos_sim = []
+
+        # product of positive cosine similarities
+        # debug program
+        if debug:
+            print 'Product of positive cosine similarities: '
+            print 'Product of positive cosine similarities: '
+        for i, items in enumerate(self.acc_pos_cos_sim):
+            acc_pos_pro = 1
+            for item in items:
+                acc_pos_pro *= float(item)
+            self.acc_product_pos_cos_sim.append(acc_pos_pro)
+        
+        if debug:
+            print self.acc_product_pos_cos_sim, '\n'
+        # print len(self.acc_product_pos_cos_sim), '\n'
+
+        # product of negative cosine similarities
+        # debug program
+        if debug:
+            print 'Product of negative cosine similarities: '
+            print 'Product of negative cosine similarities: '
+        for i, items in enumerate(self.acc_neg_cos_sim):
+            acc_neg_pro = 1
+            for item in items:
+                acc_neg_pro *= float(item)
+            self.acc_product_neg_cos_sim.append(acc_neg_pro)
+        
+        if debug:
+            print self.acc_product_neg_cos_sim, '\n'      
+        # print len(self.acc_product_neg_cos_sim), '\n'
+        
+        ############################### end of accuracy ########################################
+        
+        
+        
+         ##########################################################################################
+                     naive bayes constructor
+        ######################################### for accuracy ###################################
+        ##########################################################################################
+        
+        self.posit_train_tfidf = cs.posit_train_tfidf
+        self.negat_train_tfidf = cs.negat_train_tfidf
+        
+        self.pos_test = cs.pos_test
+        self.neg_test = cs.neg_test
+        
+        self.acc_product_pos_cos_sim = cs.acc_product_pos_cos_sim
+        self.acc_product_neg_cos_sim = cs.acc_product_neg_cos_sim
+        
+        self.acc_prob_pos_train = format((len(self.posit_train_tfidf) / \
+                                (len(self.posit_train_tfidf) + len(self.negat_train_tfidf))), '.3f')
+        self.acc_prob_neg_train = format((len(self.negat_train_tfidf) / \
+                                (len(self.posit_train_tfidf) + len(self.negat_train_tfidf))), '.3f')
+        
+        print 'Probability of positive training tweets: ', self.acc_prob_pos_train
+        print 'Probability of negative training tweets: ', self.acc_prob_neg_train, '\n'        
+        
+        ############################### end of accuracy ########################################        
+        
+        
+        
+        ##########################################################################################
+                    calculate naive bayes
+        ######################################### for accuracy ###################################
+        ##########################################################################################
+        
+        # calculate probabilities for positive documents
+        
+        self.acc_prob_pposp_tweets = []
+        self.acc_prob_pposn_tweets = []
+        # debug program
+        if debug:
+            print 'Probabilities of positive tweets: '
+        print '\nProbabilities of positive tweets: '
+        for items in self.acc_product_pos_cos_sim:
+            self.acc_prob_pposp_tweets.append(float(items) * float(self.acc_prob_pos_train))
+        print self.acc_prob_pposp_tweets, '\n'
+        
+        if debug:
+            print 'Probabilities of positive tweets: '
+        print '\nProbabilities of negative tweets: '
+        for items in self.acc_product_pos_cos_sim:
+            self.acc_prob_pposn_tweets.append(float(items) * float(self.acc_prob_neg_train))
+        print self.acc_prob_pposn_tweets, '\n'
+        
+        # debug program
+        if debug:
+            print self.acc_prob_pos_tweets, '\n'
+
+        # calculate probabilities for negative documents
+        
+        self.acc_prob_nposp_tweets = []
+        self.acc_prob_nposn_tweets = []
+        # debug program
+        if debug:
+            print 'Probabilities of positive tweets: '
+        print '\nProbabilities of positive tweets: '
+        for items in self.acc_product_neg_cos_sim:
+            self.acc_prob_nposp_tweets.append(float(items) * float(self.acc_prob_pos_train))
+        print self.acc_prob_nposp_tweets, '\n'
+        
+        if debug:
+            print 'Probabilities of positive tweets: '
+        print '\nProbabilities of negative tweets: '
+        for items in self.acc_product_neg_cos_sim:
+            self.acc_prob_nposn_tweets.append(float(items) * float(self.acc_prob_neg_train))
+        print self.acc_prob_nposn_tweets, '\n'
+        
+        # debug program
+        if debug:
+            print self.acc_prob_pos_tweets, '\n'
+        
+        ############################### end of accuracy ######################################## 
+
+
+        ##########################################################################################
+                    determine pos or neg
+        ######################################### for accuracy ###################################
+        ##########################################################################################
+        
+        # debug program
+        if debug:
+            print 'Tweets Classified: '
+            
+        ############################# for positive testing #######################################
+        
+        print 'Tweets Classified: '
+        self.acc_classify_tweets = []
+        count_pos, count_neg = 0, 0
+        for i in range(len(self.acc_prob_pposp_tweets)):
+            if self.acc_prob_pposp_tweets[i] > self.acc_prob_pposn_tweets[i]:
+                count_pos += 1
+                self.acc_classify_tweets.append("Positive")                
+            elif self.acc_prob_pposp_tweets[i] < self.acc_prob_pposn_tweets[i]:
+                count_neg += 1
+                self.acc_classify_tweets.append("Negative")
+            else:
+                self.acc_classify_tweets.append("Neutral")
+        # debug program
+        if debug:
+            print self.acc_classify_tweets, '\n'
+        print self.acc_classify_tweets, '\n'
+        
+        print count_pos, count_neg, '\n'
+        
+        ############################# for negative testing #######################################
+        
+        print 'Tweets Classified: '
+        self.acc_classify_tweets = []
+        count_pos, count_neg = 0, 0
+        for i in range(len(self.acc_prob_nposp_tweets)):
+            if self.acc_prob_nposp_tweets[i] > self.acc_prob_nposn_tweets[i]:
+                count_pos += 1
+                self.acc_classify_tweets.append("Positive")                
+            elif self.acc_prob_nposp_tweets[i] < self.acc_prob_nposn_tweets[i]:
+                count_neg += 1
+                self.acc_classify_tweets.append("Negative")
+            else:
+                self.acc_classify_tweets.append("Neutral")
+        # debug program
+        if debug:
+            print self.acc_classify_tweets, '\n'
+        print self.acc_classify_tweets, '\n'
+        
+        print count_pos, count_neg, '\n'
+        
+        ############################### end of accuracy ######################################## 
