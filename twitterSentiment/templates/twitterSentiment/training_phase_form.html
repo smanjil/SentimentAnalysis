@@ -1,0 +1,42 @@
+
+{% extends 'twitterSentiment/base.html' %}
+
+{% block title %}Training Phase{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 col-md-7">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h3>Perform Validation:</h3>
+                        {% if error_message %}
+                            <p><strong>{{ error_message }}<br>{{ message }}</strong></p>
+                        {% endif %}
+                        <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            Number of training data to load (out of ): <input type="text" name="trnum" /> <br>
+                            Select train - test split ratio:
+                                <select name="ratio">
+                                    <option value="0.1">10 - 90</option>
+                                    <option value="0.2">20 - 80</option>
+                                    <option value="0.3">30 - 70</option>
+                                    <option value="0.4">40 - 60</option>
+                                    <option value="0.5">50 - 50</option>
+                                    <option value="0.6">60 - 40</option>
+                                    <option value="0.7">70 - 30</option>
+                                    <option value="0.8">80 - 20</option>
+                                    <option value="0.9">90 - 10</option>
+                                </select> <br><br>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
