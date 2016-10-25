@@ -11,11 +11,11 @@
                     <div class="panel-body">
                         <h3>Perform Validation:</h3>
                         {% if error_message %}
-                            <p><strong>{{ error_message }}<br>{{ message }}</strong></p>
+                            <p><strong>{{ error_message }}</strong></p>
                         {% endif %}
                         <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
-                            Number of training data to load (out of ): <input type="text" name="trnum" /> <br>
+                            Number of training data to load (out of {{ len }}): <input type="text" name="trnum" /> <br>
                             Select train - test split ratio:
                                 <select name="ratio">
                                     <option value="0.1">10 - 90</option>

@@ -7,9 +7,11 @@ from sdict import AlphaSortedDict
 class TestingTfIdf:
     # constructor (imports from 'data.py')
     def __init__(self):
-        d = Data()
-        self.test = d.sentence_filtered
-        self.total_bag_words = d.total_bag_words
+        self.test = Data.sentence_filtered
+        self.total_bag_words = Data.total_bag_words
+
+        print 'Here'
+        print self.test, self.total_bag_words
 
         if debug:
             print '\nTesting TF-IDF: (testing_tf_idf.py)\n'

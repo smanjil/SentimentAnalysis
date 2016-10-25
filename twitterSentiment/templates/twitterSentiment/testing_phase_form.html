@@ -16,8 +16,8 @@
                         {% endif %}
                         <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
-                            Number of training data to load (out of ): <input type="text" name="trnum" /> <br>
-                            Number of testing data to load (out of ): <input type="text" name="tenum" /> <br><br>
+                            Number of training data to load (out of {{ trlen }}): <input type="text" name="trnum" /> <br>
+                            Number of testing data to load (out of {{ telen }}): <input type="text" name="tenum" /> <br><br>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <button type="submit" class="btn btn-success">Submit</button>

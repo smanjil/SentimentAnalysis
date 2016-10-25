@@ -8,9 +8,12 @@ from nltk.stem.porter import *
 # get training and testing data
 class Data:
     # constructor (initially loads training and testing data)
-    def __init__(self):
+    def __init__(self, num_train=100, num_test=100):
         if debug:
             print '\nData: (data.py)\n'
+
+        self.num_train = num_train
+        self.num_test = num_test
 
         self.stemmer = PorterStemmer()
         # training data
@@ -38,7 +41,7 @@ class Data:
 
     # filter training data
     def helper_training(self):
-        self.tweets = self.cfile_data_lower[:10]
+        self.tweets = self.cfile_data_lower[:self.num_train]
         if debug:
             print '\nLen of training: ', len(self.tweets)
 
@@ -76,7 +79,7 @@ class Data:
 
     # filter testing Data
     def helper_testing(self):
-        test = self.tw_lower[:10]
+        test = self.tw_lower[:self.num_test]
         if debug:
             print '\nLen of tests: ', len(test)
 
