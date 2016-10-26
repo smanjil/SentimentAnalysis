@@ -31,15 +31,16 @@ class TestingView(View):
         trnum = request.POST.get('trnum')
         tenum = request.POST.get('tenum')
 
-        row = TestingResult.objects.get(no_of_train_data=trnum, no_of_test_data=tenum)
-        if row:
-            context = {
-                'tr': row.no_of_train_data,
-                'te': row.no_of_test_data,
-                'pos': row.no_of_pos_classified,
-                'neg': row.no_of_neg_classified
-            }
-        else:
+        try:
+            row = TestingResult.objects.get(no_of_train_data=trnum, no_of_test_data=tenum)
+            if row:
+                context = {
+                    'tr': row.no_of_train_data,
+                    'te': row.no_of_test_data,
+                    'pos': row.no_of_pos_classified,
+                    'neg': row.no_of_neg_classified
+                }
+        except:
             nb = NaiveBayes(trnum, tenum)
             train_num, test_num, pos_num, neg_num = nb.trnum, nb.tenum, nb.pos, nb.neg
             TestingResult.objects.create(no_of_train_data = train_num, no_of_test_data = test_num, \
