@@ -28,8 +28,10 @@ class TestingResult(models.Model):
     no_of_test_data = models.IntegerField()
     no_of_pos_classified = models.IntegerField()
     no_of_neg_classified = models.IntegerField()
-    no_of_actual_pos = models.IntegerField()
-    no_of_actual_neg = models.IntegerField()
+
+    def __str__(self):
+        string = str(self.no_of_train_data) + ' ' + str(self.no_of_test_data)
+        return string
 
 class ValidationResult(models.Model):
     train_split_ratio = models.FloatField()

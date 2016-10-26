@@ -6,12 +6,13 @@ from sdict import AlphaSortedDict
 
 class TestingTfIdf:
     # constructor (imports from 'data.py')
-    def __init__(self):
-        self.test = Data.sentence_filtered
-        self.total_bag_words = Data.total_bag_words
+    def __init__(self, trnum, tenum):
 
-        print 'Here'
-        print self.test, self.total_bag_words
+        self.trnum, self.tenum = trnum, tenum
+
+        d = Data(self.trnum, self.tenum)
+        self.test = d.sentence_filtered
+        self.total_bag_words = d.total_bag_words
 
         if debug:
             print '\nTesting TF-IDF: (testing_tf_idf.py)\n'
@@ -69,5 +70,6 @@ class TestingTfIdf:
             self.tot_tf_idf.append(sep_tf_idf)
         if debug:
             print '\nTF-IDF: ', self.tot_tf_idf, '\n\n'
+        return self.tot_tf_idf
 
 # tf = TestingTfIdf()

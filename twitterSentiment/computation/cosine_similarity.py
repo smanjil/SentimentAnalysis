@@ -6,12 +6,12 @@ from testing_tf_idf import TestingTfIdf
 
 class CosineSimilarity:
     # constructor (imports from training_tf_idf and testing_tf_idf)
-    def __init__(self):
-        training = TrainingTfIdf()
-        testing = TestingTfIdf()
+    def __init__(self, trnum, tenum):
 
-        self.train_tf_idf = training.tot_tf_idf
-        self.test_tf_idf = testing.tot_tf_idf
+        self.trnum, self.tenum = trnum, tenum
+
+        self.train_tf_idf = TrainingTfIdf(self.trnum, self.tenum).tot_tf_idf
+        self.test_tf_idf = TestingTfIdf(self.trnum, self.tenum).tot_tf_idf
 
         if debug:
             print '\nCosine Similarity: (cosine_similarity.py)\n'
@@ -24,7 +24,6 @@ class CosineSimilarity:
 
     # separate positive and negative vectors
     def separate_positive_and_negative_vectors(self):
-        print 1
         self.positive_train_tfidf = []
         self.negative_train_tfidf = []
 
@@ -33,10 +32,10 @@ class CosineSimilarity:
                 self.positive_train_tfidf.append(items)
             else:
                 self.negative_train_tfidf.append(items)
+        return (self.positive_train_tfidf, self.negative_train_tfidf)
 
     # calculate dot product
     def calculate_dot_product(self):
-        print 2
         self.total_pos_dot_product = []
         self.total_neg_dot_product = []
         
@@ -68,7 +67,6 @@ class CosineSimilarity:
             print neg_val, '\n'
 
         for i, items in enumerate(test_val):
-            print i
             pos_dot_product = []
             for item in pos_val:
                 sum_dot_product = sum([x * y if x * y != 0.0 else 0.001 for x, y in zip(items, item)])
@@ -78,7 +76,6 @@ class CosineSimilarity:
             print self.total_pos_dot_product                
 
         for i, items in enumerate(test_val):
-            print i
             neg_dot_product = []
             for item in neg_val:
                 sum_dot_product = sum([x * y if x * y != 0.0 else 0.001 for x, y in zip(items, item)])
@@ -89,7 +86,6 @@ class CosineSimilarity:
         
     # length normalization of vectors
     def calculate_magnitude(self):
-        print 3
         self.test_normalization = []
         self.pos_train_normalization = []
         self.neg_train_normalization = []
@@ -114,7 +110,6 @@ class CosineSimilarity:
 
     # calculate cosine similarity
     def calculate_cosine_similarity(self):
-        print 4
         self.pos_cos_sim = []
         self.neg_cos_sim = []
 
@@ -150,7 +145,6 @@ class CosineSimilarity:
 
     # calculate product of positive and negative cosine similarities
     def calculate_product_cosines(self):
-        print 5
         self.product_pos_cos_sim = []
         self.product_neg_cos_sim = []
 
@@ -169,5 +163,6 @@ class CosineSimilarity:
             self.product_neg_cos_sim.append(neg_pro)
         if debug:
             print self.product_pos_cos_sim, '\n', self.product_neg_cos_sim
+        return (self.product_pos_cos_sim, self.product_neg_cos_sim)
 
 # cs = CosineSimilarity()

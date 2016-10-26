@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import View
-from computation.data import Data
+from computation.naive_bayes import NaiveBayes
 import subprocess
+from .models import TestingResult
 
 # Create your views here.
 
@@ -30,6 +31,24 @@ class TestingView(View):
         trnum = request.POST.get('trnum')
         tenum = request.POST.get('tenum')
 
-        data = Data(trnum, tenum)
+        row = TestingResult.objects.get(no_of_train_data=trnum, no_of_test_data=tenum)
+        if row:
+            context = {
+                'tr': row.no_of_train_data,
+                'te': row.no_of_test_data,
+                'pos': row.no_of_pos_classified,
+                'neg': row.no_of_neg_classified
+            }
+        else:
+            nb = NaiveBayes(trnum, tenum)
+            train_num, test_num, pos_num, neg_num = nb.trnum, nb.tenum, nb.pos, nb.neg
+            TestingResult.objects.create(no_of_train_data = train_num, no_of_test_data = test_num, \
+                                        no_of_pos_classified = pos_num, no_of_neg_classified = neg_num)
+            context = {
+                'tr' : train_num,
+                'te' : test_num,
+                'pos' : pos_num,
+                'neg' : neg_num
+            }
 
-        return render(request, 'twitterSentiment/testing_phase_result.html', {'tr': trnum, 'te':tenum})
+        return render(request, 'twitterSentiment/testing_phase_result.html', context)

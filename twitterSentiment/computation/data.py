@@ -24,16 +24,11 @@ class Data:
     	[self.cfile_data_lower.append([sentiment, words.lower()]) for [sentiment, words] in cfile_data]
 
         # testing data
-        con = md.connect('localhost','root','12345','tweetdb')
-    	cur = con.cursor()
-    	cur.execute("select * from realtweetsentiment_realtweet")
-    	tw = []
-    	count = 0
-    	for row in cur.fetchall():
-    		tw.append(row[1])
-    		count += 1
+        tfile = open('test_tweets.csv')
+        tfile_read = csv.reader(tfile)
+        tw = list(tfile_read)
     	self.tw_lower = []
-    	[self.tw_lower.append(items.lower()) for items in tw]
+    	[self.tw_lower.append(tweets.lower()) for [tweets, date] in tw]
 
         self.helper_training()
         self.helper_testing()
