@@ -5,7 +5,7 @@ from cosine_similarity import CosineSimilarity
 
 class NaiveBayes:
     # constructor imports cosine similarities from cosine_similarity.py
-    def __init__(self, trnum, tenum):
+    def __init__(self, trnum, tenum=100):
 
         self.trnum, self.tenum = int(trnum), int(tenum)
 
@@ -25,7 +25,7 @@ class NaiveBayes:
 
     # calculate naive bayes probability
     def calculate_naive_bayes(self):
-        self.prob_pos_tweets = (float(items) * float(self.prob_pos_train) for items in self.product_pos_cos_sim)        
+        self.prob_pos_tweets = (float(items) * float(self.prob_pos_train) for items in self.product_pos_cos_sim)
         self.prob_neg_tweets = (float(items) * float(self.prob_neg_train) for items in self.product_neg_cos_sim)
 
     # determine positive or negative tweets

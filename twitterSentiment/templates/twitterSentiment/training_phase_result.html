@@ -1,0 +1,33 @@
+
+{% extends 'twitterSentiment/base.html' %}
+
+{% block title %}Training Phase Result{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 col-md-7">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h3>Validation Results:</h3>
+                        Train Ratio Selected: {{ tr_ratio }} <br />
+                        Test Ratio Selected: {{ te_ratio }} <br />
+                        Total Training Data Selected: {{ trnum }} <br />
+                        Total Positive Training Data: {{ trpos }} <br />
+                        Total Negative Training Data: {{ trneg }} <br />
+                        Total Positve Testing Data: {{ tepos }} <br />
+                        Total Negaitve Testing Data: {{ teneg }} <br />
+                        Total Classified Positive Data: {{ cpos }} <br />
+                        Total Classified Negative Data: {{ cneg }} <br />
+                        Total Actual Positive Data: {{ apos }} <br />
+                        Total Actual Negative Data: {{ aneg }} <br />
+                        Total Precision: {{ precision }} <br />
+                        Total Recall: {{ recall }} <br />
+                        Total F_Measure: {{ f_measure }} <br />
+                        Total Accuracy: {{ accuracy }} <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
