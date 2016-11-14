@@ -3,6 +3,9 @@
 Clone the repository:
 # git@github.com:smanjil/SentimentAnalysis.git
 
+Activate your virtual environment
+# source <virtual_env_name>/bin/activate
+
 Change into the project directory:
 # cd SentimentAnalysis
 
